@@ -278,7 +278,7 @@ class TransformerDecoderLayer(nn.Module):
             query=q,
             key=k,
             value=query,
-            attn_mask=cross_attn_mask,
+            attn_mask=self_attn_mask,
             key_padding_mask=self_key_padding_mask,
         )[0]
         query = query + self.dropout1(_query)
@@ -293,7 +293,7 @@ class TransformerDecoderLayer(nn.Module):
             query=self.with_pos_embed(query, query_pos),
             key=self.with_pos_embed(memory, memory_pos),
             value=memory,
-            attn_mask=self_attn_mask,
+            attn_mask=cross_attn_mask,
             key_padding_mask=cross_key_padding_mask,
         )[0]
         query = query + self.dropout2(_query)
